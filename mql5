@@ -1,0 +1,135 @@
+
+//+------------------------------------------------------------------+
+//|                                                     Anabolic VX  |
+//|                                        https://forexroboteasy.com |
+//|                                             Forex Robot Easy Team |
+//+------------------------------------------------------------------+
+
+// Global variables
+extern double LotSize = 0.01;      // Initial lot size for trading
+extern double GridStep = 10.0;     // Grid step for the expanding grid of orders
+extern int MaxOrders = 5;          // Maximum number of orders in the grid
+double Balance;                    // Account balance
+int OrdersCount;                   // Number of orders in the grid
+
+//+------------------------------------------------------------------+
+//| Expert advisor start function                                     |
+//+------------------------------------------------------------------+
+void OnTick()
+{
+   // Check if there is a price pullback
+   if (IsPullback())
+   {
+      // Calculate the forecasted trend direction
+      int trendDirection = ForecastTrendDirection();
+      
+      // Open new orders in the forecasted trend direction
+      for (int i = 0; i < MaxOrders; i++)
+      {
+         // Calculate the order price based on the grid step
+         double orderPrice = CalculateOrderPrice(i, trendDirection);
+         
+         // Place a virtual order at the calculated price
+         PlaceVirtualOrder(orderPrice);
+      }
+      
+      // Initiate real trading in the forecasted trend direction
+      InitiateRealTrading(trendDirection);
+   }
+}
+
+//+------------------------------------------------------------------+
+//| Check if there is a price pullback                                |
+//+------------------------------------------------------------------+
+bool IsPullback()
+{
+   // Implement the logic to check for a price pullback
+   // Return true if there is a pullback, false otherwise
+   // ...
+}
+
+//+------------------------------------------------------------------+
+//| Calculate the forecasted trend direction                          |
+//+------------------------------------------------------------------+
+int ForecastTrendDirection()
+{
+   // Implement the logic to calculate the forecasted trend direction
+   // Return 1 for an upward trend, -1 for a downward trend
+   // ...
+}
+
+//+------------------------------------------------------------------+
+//| Calculate the order price based on the grid step                  |
+//+------------------------------------------------------------------+
+double CalculateOrderPrice(int orderIndex, int trendDirection)
+{
+   // Implement the logic to calculate the order price based on the grid step
+   // Return the calculated order price
+   // ...
+}
+
+//+------------------------------------------------------------------+
+//| Place a virtual order at the calculated price                     |
+//+------------------------------------------------------------------+
+void PlaceVirtualOrder(double orderPrice)
+{
+   // Implement the logic to place a virtual order at the calculated price
+   // ...
+}
+
+//+------------------------------------------------------------------+
+//| Initiate real trading in the forecasted trend direction           |
+//+------------------------------------------------------------------+
+void InitiateRealTrading(int trendDirection)
+{
+   // Implement the logic to initiate real trading in the forecasted trend direction
+   // ...
+}
+
+//+------------------------------------------------------------------+
+//| Expert advisor initialization function                            |
+//+------------------------------------------------------------------+
+int OnInit()
+{
+   // Initialize global variables
+   Balance = AccountBalance();
+   OrdersCount = 0;
+   
+   return(INIT_SUCCEEDED);
+}
+
+//+------------------------------------------------------------------+
+//| Expert advisor deinitialization function                          |
+//+------------------------------------------------------------------+
+void OnDeinit(const int reason)
+{
+   // Perform necessary cleanup actions before the expert advisor is deinitialized
+   // ...
+}
+
+//+------------------------------------------------------------------+
+//| Expert advisor error handling function                            |
+//+------------------------------------------------------------------+
+void OnError(const int error_code, const string error_msg)
+{
+   // Handle errors that may occur during the expert advisor execution
+   // ...
+}
+
+//+------------------------------------------------------------------+
+//| Expert advisor execution stop function                            |
+//+------------------------------------------------------------------+
+void OnStop()
+{
+   // Perform necessary actions when the expert advisor execution is stopped
+   // ...
+}
+
+//+------------------------------------------------------------------+
+//| Expert advisor execution start function                           |
+//+------------------------------------------------------------------+
+void OnStart()
+{
+   // Start the expert advisor execution
+   OnTick();
+}
